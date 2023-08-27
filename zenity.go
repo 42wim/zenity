@@ -52,6 +52,7 @@ type options struct {
 	display       string
 	class         string
 	name          string
+	systemmodal   bool
 
 	// Message options
 	noWrap    bool
@@ -206,6 +207,11 @@ func Attach(id any) Option {
 // Modal returns an Option to set the modal hint.
 func Modal() Option {
 	return funcOption(func(o *options) { o.modal = true })
+}
+
+// SystemModal returns an Option to set the systemmodal hint. (Windows only)
+func SystemModal() Option {
+	return funcOption(func(o *options) { o.systemmodal = true })
 }
 
 // Display returns an Option to set the X display to use (Unix only).
