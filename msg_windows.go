@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/ncruces/zenity/internal/win"
+	"golang.org/x/sys/windows"
 )
 
 func message(kind messageKind, text string, opts options) error {
@@ -63,6 +64,10 @@ func message(kind messageKind, text string, opts options) error {
 	var title *uint16
 	if opts.title != nil {
 		title = strptr(*opts.title)
+	}
+
+	if opts.systemmodal {
+		flags |= windows.MB_SYSTEMMODAL
 	}
 
 	s, err := win.MessageBox(owner, strptr(text), title, flags)
